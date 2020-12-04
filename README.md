@@ -12,6 +12,11 @@ The application was developed and tested on a windows machine using gitbash as a
 
 
 To run the application...
+1. Simply run the start.sh shell script in the top level folder.
+   (This will run the backend node application in the background and then run 
+    the frontend react application in the foreground.)
+
+Alternately, you can run the two applications separately in separate windows..
 1. In the backend folder, run the following from a unix command line:
       node app
 2. In the frontend folder, run the following from a unix command line:
