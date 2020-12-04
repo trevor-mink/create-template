@@ -23,6 +23,9 @@ const useStyles = makeStyles( theme =>
   }),
 );
 
+// Contacts tag
+// Custom tag definition to contain singly selectable contacts list for
+// receiving the email.
 export default function Contacts(props) {
   const classes = useStyles();
 

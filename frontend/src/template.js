@@ -12,6 +12,8 @@ const useStyles = makeStyles( theme =>
   })
 );
 
+// Template tag
+// Custom tag to show a default template and allow user the modify it
 export default function Template(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(props.default);

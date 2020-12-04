@@ -1,4 +1,6 @@
 
+// module to send the request to the backend which will
+// The backend will call the service to actually send it.
 export default function sendEmail(from, to, subject, emailText) {
 
   let requestOptions = {

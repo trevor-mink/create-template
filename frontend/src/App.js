@@ -31,6 +31,8 @@ const useStyles = makeStyles( theme =>
   }),
 );
 
+// App tag
+// Main tag of application. The start of rendering
 function App() {
   const classes = useStyles();
   const defaultTemplate =

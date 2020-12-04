@@ -1,6 +1,9 @@
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
 
+// InputField tag
+// Freeform text input fields that return date back to parent via onChange prop
+// Used to handle Discount Rate and Discount Code fields
 export default function InputField(props) {
   const [value, setValue] = useState(props.defaultValue);
 
