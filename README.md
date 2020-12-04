@@ -8,6 +8,9 @@ The backend application serves the contact data to the client. The contact data 
 
 The frontend and backend application folders each contain README.md files that have additional information about each application.
 
+The application was developed and tested on a windows machine using gitbash as an execution environment. In theory, it should run on linux, mac, but has not been tested on them.
+
+
 To run the application...
 1. In the backend folder, run the following from a unix command line:
       node app
