@@ -33,3 +33,4 @@ Improvements that should be made to the Application
 4. Color scheme and positioning of the form fields could probably be improved, as well as the fonts.
 5. Add a confirmation for a successful email and an error message for a failure.
 6. Change name from React App in the tab title to Marketer Emailer (or something like that that is more descriptive than 'React App').
+7. Change protocol for backend to https.
