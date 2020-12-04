@@ -26,8 +26,9 @@ How to use the application.
 4. The user clicks Preview email, which brings up a modal dialog with the email template with all of the tags populated by the selected values.
 5. The modal dialog has two buttons at the bottom. Clicking the 'Send..' button with send the email as shown in the preview. Clicking the 'Cancel' button will exit the modal without sending the email.
 
-Improvements that could be made to the Application
+Improvements that should be made to the Application
 1. Add unit/automation testing.
 2. Remove all hard-coded configurations/data and replace appropriately (eg. the 'from' sendgrid email address put in env var and contact data in backend code moved to database and pulled from there).
 3. Validation of Discount Rate and Discount Code fields on form.
 4. Color scheme and positioning of the form fields could probably be improved, as well as the fonts.
+5. Add a confirmation for a successful email or an error message for a failure.
