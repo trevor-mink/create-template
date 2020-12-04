@@ -6,7 +6,6 @@ const assert = require('assert');
  * Initialize the express engine and setup to use bodyParser
  */
 const app = express();
-const clientPort = 3000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -14,41 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   res.header("Access-Control-Allow-Credentials", true)
-  res.header("Access-Control-Allow-Origin", "http://localhost:"+clientPort)
+  res.header("Access-Control-Allow-Origin", "*")
   next()
 })
-/*
-app.route('/api/login')
-    .post(loginRoute)
 
-const RSA_PRIVATE_KEY = fs.readFileSync('./demos/private.key')
-
-function loginRoute(req, res) {
-
-    const email = req.body.email,
-          password = req.body.password
-
-    if (validateEmailAndPassword()) {
-       const userId = findUserIdForEmail(email)
-
-        const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
-                algorithm: 'RS256',
-                expiresIn: 120,
-                subject: userId
-            })
-
-          // send the JWT back to the user
-          // TODO - multiple options available
-    }
-    else {
-        // send status 401 Unauthorized
-        res.sendStatus(401)
-    }
-}
-*/
-
+// Backend data - Would be in the database if there was one.
 let contacts = {
-    1: { name: 'Oliver Hansen', email: 'javapoppa@gmail.com' },
+    1: { name: 'Simon Barjonas', email: 'javapoppa@gmail.com' },
     2: { name: 'Van Henry', email: 'tsaamink@gmail.com' },
     3: { name: 'April Tucker', email: 'javapoppa@gmail.com' },
     4: { name: 'Ralph Hubbard', email: 'tsaamink@gmail.com' },
@@ -60,6 +31,7 @@ let contacts = {
     10: { name: 'Kelly Snyder', email: 'tsaamink@gmail.com' }
   };
 
+// Chunk of code from Twilio to use sendGrid email service.
 function sendEmail(req, res) {
   console.log('req.body: ', req.body);
   let email = req.body.email;
@@ -91,14 +63,17 @@ function sendEmail(req, res) {
     });
 }
 
+// Get the static data and return it.
 function getContacts() {
   let retContacts = JSON.stringify(contacts);
   console.log("Returning contacts: ", retContacts);
   return retContacts;
 }
 
+// endpoint to send the email.
 app.post('/api/sendEmail', sendEmail);
 
+// Send the data back to the client.
 app.get('/api/contacts', (req, res) => {
   let contacts = getContacts();
   res.send(JSON.stringify(contacts));

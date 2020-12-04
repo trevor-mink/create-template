@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+This is the create-react-app README.md. It has been preserved, but some of it may have been rendered
+-------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

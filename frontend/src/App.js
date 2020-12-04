@@ -51,9 +51,9 @@ Marketer
   const [recipient, setRecipient] = useState({name: '', email: ''});
 
   // Hold discount rate in state. Set the default here.
-  const [discountRate, setDiscountRate] = useState("30%");
+  const [discountRate, setDiscountRate] = useState("15%");
   // Hold discount code in state. Set the default here.
-  const [discountCode, setDiscountCode] = useState("DISCOUNT30");
+  const [discountCode, setDiscountCode] = useState("SHOES2020");
 
   // Handle the closing of the modal that contains the preview.
   const handleClose = () => {
