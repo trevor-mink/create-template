@@ -24,15 +24,19 @@ const useStyles = makeStyles( theme =>
 );
 
 export default function Contacts(props) {
-  //const [contacts, setContacts] = useState();
   const classes = useStyles();
 
-  //const [personName, setPersonName] = useState([]);
+  // ***************************************************************
+  // Keep the following in the state
+  // Id of the contact, so we can lookup the email and the name
   const [personId, setPersonId] = useState(0);
+  // The contacts pulled from the backend
   const [backendContacts, setBackendContacts] = useState(null);
+  // The list of contact IDs to help with populating the select list
   const [contactIDs, setContactIDs] = useState([]);
+  // The html of the actual options of the select list
   const [optionList, setOptionList] = useState('');
-  console.log('backendContacts: ', backendContacts);
+  // ***************************************************************
 
   useEffect( () => {
     async function getContacts() {
@@ -40,15 +44,17 @@ export default function Contacts(props) {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       };
+      // Get the contacts from the backend
       let response = await fetch( "http://localhost:4000/api/contacts", requestOptions);
       const contactsJson = await response.json();
       let contacts = JSON.parse(contactsJson);
 
-      console.log('body: ', contacts);
+      // Put the contacts into the state
+      //console.log('body: ', contacts);
       setBackendContacts(contacts);
 
       let contIdKeys = Object.keys(contacts);
-      console.log('contIdKeys: ', contIdKeys);
+      //console.log('contIdKeys: ', contIdKeys);
       setContactIDs(contIdKeys);
 
       // Establish initial selection
@@ -57,17 +63,21 @@ export default function Contacts(props) {
         props.onChange(contacts[contIdKeys[0]]);
       }
 
+      // Generate the html for the option list and put it in the state
+      // The result is referenced in the html that is returned
       setOptionList(contIdKeys.map((contactId) => (
         <option key={contacts[contactId].name} value={contactId}>
           {contacts[contactId].name}
         </option>
       )));
     }
+    // It is defined above, now call it
     getContacts();
   }, []);
 
+  // Handle selection of contact who is to receive the email.
   const handleChange = (event) => {
-      console.log('event.target.value: ', event.target.value);
+      //console.log('event.target.value: ', event.target.value);
       setPersonId(event.target.value);
       props.onChange(backendContacts[event.target.value]);
   }
