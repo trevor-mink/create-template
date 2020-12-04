@@ -32,3 +32,4 @@ Improvements that should be made to the Application
 3. Validation of Discount Rate and Discount Code fields on form.
 4. Color scheme and positioning of the form fields could probably be improved, as well as the fonts.
 5. Add a confirmation for a successful email or an error message for a failure.
+6. Change name from React App in the tab title to Marketer Emailer (or something like that that is more descriptive that 'React App').
