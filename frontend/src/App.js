@@ -35,13 +35,14 @@ function App() {
   const defaultTemplate =
 `Hi {{contact_first_name}},
 
-Good news! You can get {{discount_rate}} off your next pair of shoes by using this discount code:
-{{discount_code}}.
+Good news!
+
+You can get {{discount_rate}} off your next pair of shoes by using this
+discount code:  {{discount_code}}.
 
 Enjoy!
 
 Sincerely,
-
 Marketer
 `;
   const [preview, setPreview] = useState(false);
@@ -54,9 +55,12 @@ Marketer
   // Hold discount code in state. Set the default here.
   const [discountCode, setDiscountCode] = useState("DISCOUNT30");
 
+  // Handle the closing of the modal that contains the preview.
   const handleClose = () => {
     setPreview(false);
   };
+
+  // Handle changes to the email template
   const handleChange = (value) => {
     setTemplate(value);
   };
@@ -66,22 +70,25 @@ Marketer
     return mustache.render(template, keyValues);
   };
 
+  // Make the text replacements and store the email text in the state.
   let processTemplate = () => {
     let keyValues = { contact_first_name: recipient.name ? recipient.name.split(' ')[0] : '',
                       discount_rate: discountRate,
                       discount_code: discountCode };
-    let email = replaceKeys(template, keyValues);
     // Replace keys with values
+    let email = replaceKeys(template, keyValues);
 
+    // Store email in the state.
     setEmailText(email);
-    //sendEmail();
   };
 
+  // Bring up the email with replaced text, into the modal dialog.
   const previewEmail = () => {
     processTemplate();
     setPreview(true);
   };
 
+  // Handlers for the Replacement fields' inputs
   const handleContactSelection = (value) => {
     setRecipient(value);
   };
@@ -90,6 +97,11 @@ Marketer
   };
   const handleSetDiscountCode = (value) => {
     setDiscountCode(value);
+  };
+
+  const handleSendMail = () => {
+    sendEmail('javapoppa@gmail.com', recipient ? recipient.email : '', 'Discount Offer', emailText);
+    setPreview(false);
   };
 
   return (
@@ -115,9 +127,9 @@ Marketer
         <Button onClick={() => { previewEmail(); }}>Preview email</Button>
         <Modal open={preview} onClose={handleClose} className={classes.modal}>
           <div className={classes.paper}>
-          <p><pre>{emailText}</pre></p>
+          <pre>{emailText}</pre>
           <div align="center">
-          <Button onClick={() => { sendEmail('javapoppa@gmail.com', recipient ? recipient.email : '', 'Discount Offer', emailText); }}>Send Email to {recipient ? recipient.email : ''}</Button>
+          <Button onClick={() => handleSendMail() }>Send Email to {recipient ? recipient.email : ''}</Button>
           <Button onClick={() => { setPreview(false) }}>Cancel (do NOT send)</Button>
           </div>
           </div>

@@ -2,19 +2,6 @@ import { createStyles, FormControl, InputLabel, Select } from '@material-ui/core
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
 
-let contacts = {
-    1: { name: 'Oliver Hansen', email: 'javapoppa@gmail.com' },
-    2: { name: 'Van Henry', email: 'tsaamink@gmail.com' },
-    3: { name: 'April Tucker', email: 'javapoppa@gmail.com' }
-    // { name: 'Ralph Hubbard', email: 'tsaamink@gmail.com' }},
-    // { name: 'Omar Alexander', email: 'javapoppa@gmail.com' }},
-    // { name: 'Carlos Abbott', email: 'tsaamink@gmail.com' }},
-    // { name: 'Miriam Wagner', email: 'javapoppa@gmail.com' }},
-    // { name: 'Bradley Wilkerson', email: 'tsaamink@gmail.com' }},
-    // { name: 'Virginia Andrews', email: 'javapoppa@gmail.com' }},
-    // { name: 'Kelly Snyder', email: 'tsaamink@gmail.com' }}
-};
-
 const useStyles = makeStyles( theme =>
   createStyles({
     paper: {
@@ -43,95 +30,62 @@ export default function Contacts(props) {
   //const [personName, setPersonName] = useState([]);
   const [personId, setPersonId] = useState(0);
   const [backendContacts, setBackendContacts] = useState(null);
-
-  getContacts();
+  const [contactIDs, setContactIDs] = useState([]);
+  const [optionList, setOptionList] = useState('');
   console.log('backendContacts: ', backendContacts);
 
-  function getContacts() {
-    let requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    };
-    fetch( "http://localhost:4000/api/contacts", requestOptions)
-      .then( response => response.json() )
-      .then( data => {
-        console.log('data: ', data);
-        setBackendContacts(data);
-        return data;
-      })
-      .catch( error => {
-        console.log('erro;r: ', error);
-      });
-  }
+  useEffect( () => {
+    async function getContacts() {
+      let requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      };
+      let response = await fetch( "http://localhost:4000/api/contacts", requestOptions);
+      const contactsJson = await response.json();
+      let contacts = JSON.parse(contactsJson);
 
-/*
-  const handleChangeMultiple = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
+      console.log('body: ', contacts);
+      setBackendContacts(contacts);
+
+      let contIdKeys = Object.keys(contacts);
+      console.log('contIdKeys: ', contIdKeys);
+      setContactIDs(contIdKeys);
+
+      // Establish initial selection
+      if( contIdKeys && contIdKeys[0] ) {
+        setPersonId(contIdKeys[0]);
+        props.onChange(contacts[contIdKeys[0]]);
       }
-    }
-    setPersonName(value);
-  };
-  */
-  const handleChange = (event) => {
-      console.log('event.target.value: ', event.target.value);
-      setPersonId(event.target.value);
-      props.onChange(contacts[event.target.value]);
-  }
 
-  // let componentDidMount = () => {
-  //   let lContacts = getContacts();
-  //   setContacts(lContacts);
-  //
-  //   if( contacts ) {
-  //     content =
-  //   }
-  // };
-  let contactList = Object.keys(contacts);
-
-  // console.log(contactList.toString());
-
-  let optionList = contactList ? contactList.map((contactId) => (
-    <option key={contacts[contactId].name} value={contactId}>
-      {contacts[contactId].name}
-    </option>
-  )) : '';
-
-  let componentDidMount = () => {
-    if( backendContacts ) {
-      contactList = Object.keys(backendContacts);
-      console.log('contactList: ', contactList);
-
-      // console.log(contactList.toString());
-      let optionList = contactList ? contactList.map((contactId) => (
+      setOptionList(contIdKeys.map((contactId) => (
         <option key={contacts[contactId].name} value={contactId}>
           {contacts[contactId].name}
         </option>
-      )) : '';
+      )));
     }
-    // Establish initial selection
-    setPersonId(contactList[0]);
-    props.onChange(contacts[contactList[0]]);
-  };
+    getContacts();
+  }, []);
 
-  useEffect( componentDidMount, [JSON.stringify(contactList), JSON.stringify(backendContacts)]);
+  const handleChange = (event) => {
+      console.log('event.target.value: ', event.target.value);
+      setPersonId(event.target.value);
+      props.onChange(backendContacts[event.target.value]);
+  }
+
   return (
-  <FormControl className={classes.formControl}>
-    <InputLabel shrink htmlFor="select-multiple-native">
-      Contacts to get email
-    </InputLabel>
-    <Select
-      native
-      value={personId}
-      onChange={handleChange}
-      inputProps={{
-        id: 'select-multiple-native',
-      }}
+    <FormControl className={classes.formControl}>
+      <InputLabel shrink htmlFor="select-multiple-native">
+        Contacts to get email
+      </InputLabel>
+      <Select
+        native
+        value={personId}
+        onChange={handleChange}
+        inputProps={{
+          id: 'select-multiple-native',
+        }}
       >
-      {optionList}
+        {optionList}
       </Select>
     </FormControl>
   );

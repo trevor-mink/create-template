@@ -5,8 +5,9 @@ export default function InputField(props) {
   const [value, setValue] = useState(props.defaultValue);
 
   let handleChange = (event) => {
-    setValue(event.target.value);
-    props.onChange(event.target.value);
+    let val = event.target.value;
+    setValue(val);
+    props.onChange(val);
   };
 
   return (

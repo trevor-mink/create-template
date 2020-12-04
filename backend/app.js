@@ -47,18 +47,18 @@ function loginRoute(req, res) {
 }
 */
 
-let contacts = [
-    { name: 'Oliver Hansen', email: 'javapoppa@gmail.com' },
-    { name: 'Van Henry', email: 'tsaamink@gmail.com' },
-    { name: 'April Tucker', email: 'javapoppa@gmail.com' },
-    { name: 'Ralph Hubbard', email: 'tsaamink@gmail.com' },
-    { name: 'Omar Alexander', email: 'javapoppa@gmail.com' },
-    { name: 'Carlos Abbott', email: 'tsaamink@gmail.com' },
-    { name: 'Miriam Wagner', email: 'javapoppa@gmail.com' },
-    { name: 'Bradley Wilkerson', email: 'tsaamink@gmail.com' },
-    { name: 'Virginia Andrews', email: 'javapoppa@gmail.com' },
-    { name: 'Kelly Snyder', email: 'tsaamink@gmail.com' }
-  ];
+let contacts = {
+    1: { name: 'Oliver Hansen', email: 'javapoppa@gmail.com' },
+    2: { name: 'Van Henry', email: 'tsaamink@gmail.com' },
+    3: { name: 'April Tucker', email: 'javapoppa@gmail.com' },
+    4: { name: 'Ralph Hubbard', email: 'tsaamink@gmail.com' },
+    5: { name: 'Omar Alexander', email: 'javapoppa@gmail.com' },
+    6: { name: 'Carlos Abbott', email: 'tsaamink@gmail.com' },
+    7: { name: 'Miriam Wagner', email: 'javapoppa@gmail.com' },
+    8: { name: 'Bradley Wilkerson', email: 'tsaamink@gmail.com' },
+    9: { name: 'Virginia Andrews', email: 'javapoppa@gmail.com' },
+    10: { name: 'Kelly Snyder', email: 'tsaamink@gmail.com' }
+  };
 
 function sendEmail(req, res) {
   console.log('req.body: ', req.body);
@@ -92,16 +92,21 @@ function sendEmail(req, res) {
 }
 
 function getContacts() {
-  console.log("Returning contacts: ", contacts.toString());
-    return contacts;
+  let retContacts = JSON.stringify(contacts);
+  console.log("Returning contacts: ", retContacts);
+  return retContacts;
 }
 
 app.post('/api/sendEmail', sendEmail);
 
-app.get('/api/contacts', getContacts);
+app.get('/api/contacts', (req, res) => {
+  let contacts = getContacts();
+  res.send(JSON.stringify(contacts));
+});
+
 /*
  * Start up the server on port 4000
  */
 app.listen(4000, () => {
-  console.log('Gallery Web app service listening on port 4000!')
-})
+  console.log('Gallery Web app service listening on port 4000!');
+});
