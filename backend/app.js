@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 // Backend data - Would be in the database if there was one.
 let contacts = {
-    1: { name: 'Simon Barjonas', email: 'javapoppa@gmail.com' },
+    1: { name: 'Simon Data', email: 'javapoppa@gmail.com' },
     2: { name: 'Van Henry', email: 'tsaamink@gmail.com' },
     3: { name: 'April Tucker', email: 'javapoppa@gmail.com' },
     4: { name: 'Ralph Hubbard', email: 'tsaamink@gmail.com' },

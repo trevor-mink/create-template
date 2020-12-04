@@ -10,10 +10,14 @@ The frontend and backend application folders each contain README.md files that h
 
 The application was developed and tested on a windows machine using gitbash as an execution environment. In theory, it should run on linux, mac, but has not been tested on them.
 
+CONTACTS data - HOW to modify
+To modify the data that comes from the backend to populate the contacts
+selection box, edit file backend/app.js and change 'contacts' json data
+to add or modify the names and/or emails as needed.
 
 To run the application...
 1. Simply run the start.sh shell script in the top level folder.
-   (This will run the backend node application in the background and then run 
+   (This will run the backend node application in the background and then run
     the frontend react application in the foreground.)
 
 Alternately, you can run the two applications separately in separate windows..
